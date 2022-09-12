@@ -20,11 +20,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.fongmi.android.tv.api.ApiConfig;
 import com.fongmi.android.tv.bean.Class;
+import com.fongmi.android.tv.bean.Filter;
 import com.fongmi.android.tv.bean.Result;
 import com.fongmi.android.tv.databinding.ActivityVodBinding;
 import com.fongmi.android.tv.ui.fragment.VodFragment;
 import com.fongmi.android.tv.ui.presenter.TypePresenter;
 import com.fongmi.android.tv.utils.ResUtil;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -143,7 +145,9 @@ public class VodActivity extends BaseActivity {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            return VodFragment.newInstance(mResult.getTypes().get(position).getTypeId(), mResult.getFilters().get(mResult.getTypes().get(position).getTypeId()));
+            Class type = mResult.getTypes().get(position);
+            String filter = new Gson().toJson(mResult.getFilters().get(type.getTypeId()));
+            return VodFragment.newInstance(type.getTypeId(), filter, type.getTypeFlag().equals("1"));
         }
 
         @Override
