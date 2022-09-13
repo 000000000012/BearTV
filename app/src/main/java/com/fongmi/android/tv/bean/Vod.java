@@ -167,6 +167,10 @@ public class Vod {
         return getVodRemarks().isEmpty() ? View.GONE : View.VISIBLE;
     }
 
+    public boolean shouldSearch() {
+        return getVodId().isEmpty() || getVodId().startsWith("msearch:");
+    }
+
     public void setVodFlags() {
         String[] playFlags = getVodPlayFrom().split("\\$\\$\\$");
         String[] playUrls = getVodPlayUrl().split("\\$\\$\\$");
